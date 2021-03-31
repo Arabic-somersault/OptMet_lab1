@@ -8,12 +8,12 @@
 double CombinedBrent::evaluate() {
     double eps_n = (c - a) / 2;
 
-    bool usedParabola = false;
+    bool usedParabola = false, f = true;
     double f_x = Function::evaluate(x);
     double f_v = f_x;
     double f_w = f_x;
     double f_u;
-    double calcFunction = 1;
+    double calcFunction = 0;
     intervals.emplace_back(usedParabola, a, c);
 
     while (eps_n > eps) {
@@ -28,7 +28,12 @@ double CombinedBrent::evaluate() {
         if (Function::different(x, v, w)
             && Function::different(f_x, f_w, f_v)) {
             temp_u = ParabolaUtils::find_x_n(x, w, find_a_1(x, w), find_a_2(x, w, v));
-            calcFunction += 3;
+            if (f) {
+                calcFunction += 3;
+                f = false;
+            } else {
+                calcFunction += 1;
+            }
             if ((temp_u > a || Function::equals(temp_u, a)) && (temp_u < c || Function::equals(temp_u, c)) &&
                 fabs(temp_u - x) < g / 2) {
                 usedParabola = true;

@@ -25,14 +25,14 @@ double Parabola::evaluate() {
     double x3 = b;
     double x2 = (a + b) / 2;
     double eps_n = (b - a) / 2;
-    double calcFunction = 0;
+    double calcFunction = 3;
 
     intervals.emplace_back(x1, x3);
     while (eps_n > eps) {
         double x_n = find_x_n(x1, x2, find_a_1(x1, x2), find_a_2(x1, x2, x3));
-        calcFunction += 3;
+        calcFunction += 1;
         if (x1 < x_n && x_n < x2 && x2 < x3) {
-            calcFunction += 2;
+            calcFunction += 1;
             if (Function::evaluate(x_n) >= Function::evaluate(x2)) {
                 x1 = x_n;
             } else {
@@ -40,7 +40,7 @@ double Parabola::evaluate() {
                 x2 = x_n;
             }
         } else if (x1 < x2 && x2 < x_n && x2 < x3) {
-            calcFunction += 2;
+            calcFunction += 1;
             if (Function::evaluate(x_n) <= Function::evaluate(x2)) {
                 x1 = x2;
                 x2 = x_n;
